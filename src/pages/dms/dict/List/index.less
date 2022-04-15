@@ -1,0 +1,63 @@
+@import '~antd/es/style/themes/default.less';
+
+.dict_item_folder {
+  text-align: center;
+  border: 1px solid transparent;
+  padding-bottom: 5px;
+  position: relative;
+
+  &:hover{
+    border: 1px solid @border-color-base;
+
+    .dict_paste {
+      visibility: visible;
+    }
+  }
+
+  .dict_icon {
+    padding: 0.5em;
+    img {
+      width: 60%;
+    }
+  }
+
+  &.dict_select {
+    background-color: @background-color-base;
+  }
+
+  .dict_name {
+    margin:0 0.3em;
+    max-height: 3.1em;
+    overflow: hidden;
+    white-space:pre-wrap;/* 规定文本是否折行 */
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 控制最多显示几行 */
+    -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
+  }
+
+  .dict_paste {
+    visibility: hidden;
+    display: inline-block;
+    position: absolute;
+    margin: 2px 2px 0 0;
+    top: 0;
+    right: 0;
+  }
+}
+
+.dict_value {
+  color: @btn-primary-bg;
+}
+
+.dict_item_list {
+  margin: 1px 0!important;
+  padding: 5px 3px!important;
+  .dict_item_col{
+    padding: 6px 1px;
+  }
+
+  &:hover {
+    background-color: @background-color-base;
+  }
+}
