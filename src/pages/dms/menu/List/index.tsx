@@ -7,7 +7,8 @@ import {ModalForm, ProFormInstance, ProFormRadio, ProFormText, ProFormTreeSelect
 import {getMenuList, removeMenu, saveMenu, saveMenuSort} from './service';
 import {MenuItem} from "./data";
 import ProTable from '@ant-design/pro-table';
-import {isArray, isNumber} from "lodash";
+import {isArray} from "lodash";
+import IconSelect, {BzIcon} from "@/components/IconSelect";
 
 const { Paragraph } = Typography;
 
@@ -41,7 +42,7 @@ const TableList: React.FC = () => {
       dataIndex: 'name',
       render: (_, record)=>{
         return <Space>
-          <>{_}</>
+          <>{record.icon?<BzIcon type={record.icon}/>:null}{_}</>
         </Space>
       }
     },
@@ -136,6 +137,7 @@ const TableList: React.FC = () => {
           修改
         </a>,
         <Popconfirm
+          key={'delete'}
           title={<>确认删除菜单[ {record.name} ]吗?</>}
           placement={"topRight"}
           okText="删除"
@@ -178,7 +180,7 @@ const TableList: React.FC = () => {
         toolBarRender={() => [
           <Button
             type="primary"
-            key="primary"
+            key="new"
             onClick={() => {
               handleSaveModalVisible(true);
               handleCurrentRow({validity: 'valid', parentId:0, sortNo: 0})
@@ -188,7 +190,7 @@ const TableList: React.FC = () => {
           </Button>,
           <Button
             type="primary"
-            key="primary"
+            key="add"
             onClick={() => {
               if(menuGroups.length==0) {
                 message.error('请先新建一个菜单组，才可以新建菜单');
@@ -313,10 +315,9 @@ const TableList: React.FC = () => {
           label={'路径'}
           name="path"
         />
-        <ProFormText
-          hidden={currentRow?.parentId==0}
+        <IconSelect
           label={'图标'}
-          name="icon"
+          name={'icon'}
         />
 
         <ProFormRadio.Group

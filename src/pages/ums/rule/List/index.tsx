@@ -265,6 +265,7 @@ export default () => {
         </a>:null,
         record.rule!=undefined?
         <Popconfirm
+          key={'delete'}
           title={<>确认解除权限[ {record.rule?.name} ]吗?</>}
 
           placement={"topRight"}
@@ -325,6 +326,7 @@ export default () => {
             修改权限
           </a>,
           <Popconfirm
+            key={'del'}
             title={<>确认删除权限[ {record?.name} ]吗?</>}
             placement={"topRight"}
             okText="删除"

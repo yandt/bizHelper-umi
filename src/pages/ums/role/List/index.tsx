@@ -72,6 +72,7 @@ export default () => {
           setEditBtnLoadingId(0)
         }}>编辑</Button>,
         <Popconfirm
+          key={'delete'}
           title={<>确认删除角色[ {row.name} ]吗?</>}
           placement={"topRight"}
           okText="删除"
@@ -107,12 +108,11 @@ export default () => {
         }}
         options={{
           search: true,
-
         }}
         toolBarRender={() => [
           <Button
             type="primary"
-            key="primary"
+            key="add"
             onClick={() => {
               setCurrentRole({validity: 'valid', type: activeKey})
               setRuleKeys([])
@@ -123,9 +123,8 @@ export default () => {
             <PlusOutlined /> 新增{activeKey=='function'?'功能':'数据'}角色
           </Button>,
         ]}
-        rowKey="uid"
+        rowKey="roleId"
         search={false}
-        dateFormatter="string"
         toolbar={{
           menu: {
             type: 'tab',
@@ -133,11 +132,11 @@ export default () => {
             items: [
               {
                 key: 'function',
-                label: <span>功能角色</span>,
+                label: <span key={'function'}>功能角色</span>,
               },
               {
                 key: 'data',
-                label: <span>数据角色</span>,
+                label: <span key={'data'}>数据角色</span>,
               }
             ],
             onChange: (key) => {
@@ -151,6 +150,7 @@ export default () => {
 
       {/*编辑角色*/}
       <ModalForm
+        key={'edit'}
         formRef={dataFormRef}
         title={currentRole != undefined && currentRole.roleId != undefined?'编辑功能角色':'新增功能角色'}
         width="800px"
@@ -247,7 +247,7 @@ export default () => {
               front: [<Tag color="#2db7f5">前端</Tag>, '前端'],
               defined: [<Tag color="#87d068">自定义</Tag>, '自定义']
             }
-            const label = <>{tags[row.type][0]}{row.name}</>
+            const label = <div key={row.ruleId}>{tags[row.type][0]}{row.name}</div>
             return {
               label,
               value: tags[row.type][1] + '-' +row.name

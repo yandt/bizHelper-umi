@@ -56,7 +56,7 @@ const TableList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <a
-          key="config"
+          key="add"
           onClick={() => {
             handleSaveModalVisible(true);
             handleCurrentRow({validity: 'valid', parentId: record.companyId})
@@ -65,7 +65,7 @@ const TableList: React.FC = () => {
           新增
         </a>,
         <a
-          key="config"
+          key="mdf"
           onClick={() => {
             handleSaveModalVisible(true);
             handleCurrentRow(record);
@@ -74,6 +74,7 @@ const TableList: React.FC = () => {
           修改
         </a>,
         <Popconfirm
+          key={'delete'}
           title={<>确认删除部门[ {record.name} ]吗?</>}
           placement={"topRight"}
           okText="删除"

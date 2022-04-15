@@ -86,6 +86,7 @@ export default () => {
           handleCurrentRow(row)
         }}>权限</a>,
         <Popconfirm
+          key={'delete'}
           title={<>确认删除用户[ {row.nick} ]吗?</>}
           placement={"topRight"}
           okText="删除"
@@ -136,7 +137,7 @@ export default () => {
         toolBarRender={() => [
           <Button
             type="primary"
-            key="primary"
+            key="add"
             onClick={() => {
               handleCurrentRow({validity: 'valid'})
               handleSaveModalVisible(true);
@@ -152,6 +153,7 @@ export default () => {
 
       {/*编辑用户*/}
       <ModalForm
+        key={'edit'}
         formRef={dataFormRef}
         title={currentRow != undefined && currentRow.uid != undefined?'编辑用户':'新增用户'}
         width="650px"
@@ -267,6 +269,7 @@ export default () => {
 
       {/*修改用户密码*/}
       <ModalForm
+        key={'pwd'}
         formRef={pwdFormRef}
         title={'修改密码'}
         width="500px"
@@ -345,6 +348,7 @@ export default () => {
 
       {/*角色分配*/}
       <ModalForm
+        key={'role'}
         formRef={roleFormRef}
         title={''}
         width="500px"

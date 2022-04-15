@@ -10,6 +10,8 @@ import defaultSettings from '../config/defaultSettings';
 import { RequestOptionsInit } from 'umi-request';
 import _request from "@/utils/bhRequest";
 import {Role} from "@/pages/ums/role/List/data";
+import {MenuItem} from "@/pages/dms/menu/List/data";
+import {BzIcon} from "@/components/IconSelect";
 // import errorHandler from "@/utils/errorHandler";
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -53,16 +55,30 @@ export async function getInitialState(): Promise<{
   };
 }
 
+const setMenuIcon = (menus: MenuItem[]) => {
+  return menus.map(menu=>{
+    if(menu.icon!=undefined && menu.icon.length>0)
+      { // @ts-ignore
+        menu.icon = <BzIcon type={menu.icon}/>
+      }
+    if(menu.children!=undefined)
+      menu.children = setMenuIcon(menu.children)
+    return menu
+  })
+}
 
-const fetchMenuData = (params: {
+
+const fetchMenuData = async (params: {
   uid?: number
 }) => {
-  return _request<Role[]>('GET', '/api/pub/menu_list', {
+  const body = await _request<MenuItem[]>('GET', '/api/pub/menu_list', {
     showMsg: false,
     params: {
       ...params,
     },
   });
+
+  return setMenuIcon(body.data);
 }
 
 
@@ -127,7 +143,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       request: async (params) => {
         // initialState.currentUser 中包含了所有用户信息
         const menuData = await fetchMenuData(params);
-        return menuData.data;
+        return menuData;
       },
     },
     ...initialState?.settings,
