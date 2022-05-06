@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
+import {saveAccess} from "@/utils/accessUtils";
 
 const LoginMessage: React.FC<{
   content: string;
@@ -47,8 +48,7 @@ const Login: React.FC = () => {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         /** 存入获取到的令牌 */
-
-        sessionStorage.setItem('access', JSON.stringify({ token: msg.accessToken ?? '', type: msg.tokenType ?? '' }));
+        saveAccess(msg.tokenType ?? '', msg.accessToken ?? '')
         await fetchUserInfo();
         /** 此方法会跳转到 redirect 参数所在的位置 */
 

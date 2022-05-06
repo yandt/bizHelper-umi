@@ -21,11 +21,31 @@ export default [
     component: './Welcome',
   },
   {
-    rule: '/admin',
+    name: '数据管理',
+    path: '/grid',
+    routes: [
+      {
+        name: 'Connect',
+        access: 'routeFilter',
+        path: '/grid/connect',
+        component: './grid/connect/List',
+      },
+      {
+        name: 'Console',
+        access: 'routeFilter',
+        path: '/grid/console',
+        component: './grid/console/List',
+      },
+      {
+        component: './404',
+      },
+    ],
+  },
+  {
     name: '系统管理',
+    path: '/admin',
     icon: 'crown',
     access: 'routeFilter',
-    // component: './Admin',
     routes: [
       {
         name: '用户管理',

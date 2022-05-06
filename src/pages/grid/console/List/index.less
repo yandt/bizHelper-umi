@@ -1,0 +1,64 @@
+@import '~antd/es/style/themes/default.less';
+
+@top-bottom-padding: 48px;
+@tabs-height: 36px;
+
+.console-page-container-children-content {
+  margin: -24px -22px calc(-24px + -124px) -24px;
+
+  .bz-sider{
+
+    .bz-sider-header{
+      height: @tabs-height;
+      line-height: @tabs-height;
+      background: @background-color-base;
+      border-bottom: 1px solid @border-color-split;
+      padding: 0 10px;
+    }
+  }
+
+  .ant-collapse-header{
+    padding: 5px!important;
+  }
+
+  .ant-collapse-content-box {
+    padding: 5px!important;
+  }
+
+  .ant-layout {
+
+
+    height: calc(100vh - @top-bottom-padding);
+    //overflow: hidden;
+
+    .ant-layout-sider {
+      background: @layout-sider-background-light;
+      //box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+      border-right: 1px solid @border-color-split;
+    }
+
+    .ant-layout-content {
+      background: @layout-sider-background-light;
+      padding: 0px;
+
+      .ant-tabs-tab {
+        margin: 0px;
+        padding: 7px 12px;
+      }
+
+      .ant-tabs-nav {
+        margin: 1px;
+      }
+
+      .ant-tabs-content {
+        height: calc(100vh - @top-bottom-padding - @tabs-height);
+      }
+    }
+
+    .ant-table-cell {
+      padding:3px!important;
+    }
+
+  }
+
+}

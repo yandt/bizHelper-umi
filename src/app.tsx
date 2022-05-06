@@ -9,9 +9,9 @@ import {BookOutlined, LinkOutlined} from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 import { RequestOptionsInit } from 'umi-request';
 import _request from "@/utils/bhRequest";
-import {Role} from "@/pages/ums/role/List/data";
 import {MenuItem} from "@/pages/dms/menu/List/data";
 import {BzIcon} from "@/components/IconSelect";
+import {getAccess} from "@/utils/accessUtils";
 // import errorHandler from "@/utils/errorHandler";
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -41,7 +41,7 @@ export async function getInitialState(): Promise<{
     return undefined;
   };
   // 如果不是登录页面，执行
-  if (history.location.pathname !== loginPath) {
+  if (history.location.pathname !== loginPath && history.location.pathname !== '/') {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -141,6 +141,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         uid: initialState?.currentUser?.uid,
       },
       request: async (params) => {
+        if(params.uid == undefined) return []
         // initialState.currentUser 中包含了所有用户信息
         const menuData = await fetchMenuData(params);
         return menuData;
@@ -152,8 +153,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 
 
 const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
-  const access = sessionStorage.getItem('access') || '{}';
-  const access_data = JSON.parse(access)
+  const access_data = getAccess()
   const token = access_data.token ?? '';
   const token_type = access_data.type ?? '';
   const authHeader = { Authorization: `${token_type} ${token}` };
